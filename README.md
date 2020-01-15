@@ -21,3 +21,5 @@ Highlight：[cndjs](https://cdnjs.com/)
 > blog缩略图-左右位置：500x500
 
 ---
+
+FK

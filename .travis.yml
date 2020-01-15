@@ -1,0 +1,36 @@
+{
+  "go": [
+    "1.13.6"
+  ],
+  "os": [
+    "linux"
+  ],
+  "git": {
+    "depth": 1
+  },
+  "deploy": [
+    {
+      "on": {
+        "branch": [
+          "master"
+        ]
+      },
+      "fqdn": "yj1516.top",
+      "name": "YHYJ",
+      "repo": "YHYJ/YHYJ.github.io",
+      "email": "yj1516268@outlook.com",
+      "token": "$GITHUB_TOKEN",
+      "skip_cleanup": true,
+      "provider": "pages",
+      "local_dir": "public",
+      "target_branch": "master"
+    }
+  ],
+  "script": [
+    "hugo"
+  ],
+  "install": [
+    "go get -v -u github.com/gohugoio/hugo"
+  ],
+  "language": "go"
+}

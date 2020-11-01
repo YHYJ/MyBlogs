@@ -27,6 +27,8 @@ coverSize: full
 
 常用优质软件列表
 
+<!--more-->
+
 其中：
 
 CLI：命令行工具
@@ -36,8 +38,6 @@ GUI：图形界面
 Service：服务
 
 Library：库
-
-<!--more-->
 
 <!-- toc -->
 

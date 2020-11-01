@@ -5,15 +5,15 @@ go:           # 使用的该语言哪个版本？
 
 # 2. 接下来要用到的环境变量
 env:
-  - hugo_version="0.77.0"
+  - version="0.77.0"    # 要安装哪个版本的hugo？
 
 # 3. 提权
-sudo: required  # 需要root权限么？
+sudo: required          # 需要root权限么？
 
 # 4. 安装项目要用的东西
-install:        # 要安装什么？
-  - wget https://github.com/gohugoio/hugo/releases/download/v$hugo_version/hugo_$hugo_version_Linux-64bit.deb
-  - dpkg -i hugo_$hugo_version_Linux-64bit.deb
+install:                # 要怎么安装hugo？
+  - wget https://github.com/gohugoio/hugo/releases/download/v$version/hugo_$version_Linux-64bit.deb
+  - dpkg -i hugo_$version_Linux-64bit.deb
   - hugo version
 
 # 5. 设置clone源仓库的规则

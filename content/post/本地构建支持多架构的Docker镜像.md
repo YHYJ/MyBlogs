@@ -18,7 +18,7 @@ keywords:
 - Docker
 autoThumbnailImage: yes
 thumbnailImage: https://gitee.com/YJ1516/MyPic/raw/master/picgo/docker_750x236.png
-thumbnailImagePosition: left
+thumbnailImagePosition: top
 metaAlignment: center
 coverImage: https://gitee.com/YJ1516/MyPic/raw/master/picgo/docker_1920x1080.jpeg
 coverCaption: "集装箱？容器？Docker？"

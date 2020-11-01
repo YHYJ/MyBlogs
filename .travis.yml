@@ -1,36 +1,42 @@
-{
-  "go": [
-    "1.13.6"
-  ],
-  "os": [
-    "linux"
-  ],
-  "git": {
-    "depth": 1
-  },
-  "deploy": [
-    {
-      "on": {
-        "branch": [
-          "master"
-        ]
-      },
-      "fqdn": "yj1516.top",
-      "name": "YHYJ",
-      "repo": "YHYJ/YHYJ.github.io",
-      "email": "yj1516268@outlook.com",
-      "token": "$GITHUB_TOKEN",
-      "skip_cleanup": true,
-      "provider": "pages",
-      "local_dir": "public",
-      "target_branch": "master"
-    }
-  ],
-  "script": [
-    "hugo"
-  ],
-  "install": [
-    "go get -v -u github.com/gohugoio/hugo"
-  ],
-  "language": "go"
-}
+# 1. 设置环境
+language: go  # 使用哪种语言构建的项目？
+go:           # 使用的该语言哪个版本？
+  - "1.15.3"
+
+# 2. 接下来要用到的环境变量
+env:
+  - hugo_version="0.77.0"
+
+# 3. 提权
+sudo: required  # 需要root权限么？
+
+# 4. 安装项目要用的东西
+install:        # 要安装什么？
+  - wget https://github.com/gohugoio/hugo/releases/download/v$hugo_version/hugo_$hugo_version_Linux-64bit.deb
+  - dpkg -i hugo_$hugo_version_Linux-64bit.deb
+  - hugo version
+
+# 5. 设置clone源仓库的规则
+git:                # 要怎么clone？
+  depth: 1          # clone多少个commit？
+  quiet: false      # 要不要输出日志？
+  autocrlf: input   # 在什么时候自动调整回车换行？
+
+# 6. 设置构建命令
+script:     # 要怎么构建？
+  - hugo
+
+# 7. 设置部署规则
+deploy:                         # 要怎么部署？
+  provider: pages               # 要部署的是什么？
+  on:
+    branch: master              # 要到仓库的哪个分支进行部署？
+  repo: YHYJ/YHYJ.github.io     # 要部署到哪个仓库？
+  github_token: $GITHUB_TOKEN   # 要部署的仓库的TOKEN是什么？
+  local_dir: public             # 要部署的源仓库的文件夹叫什么？
+  target_branch: master         # 把local_dir的内容部署到哪个分支？
+  skip_cleanup: true            # 要不要跳过重置工作目录的步骤？
+  keep_history: false           # 要不要选择增量提交？
+  fqdn: yj1516.top              # 网站的域是什么？
+  name: YHYJ                    # 提交者是谁？
+  email: yj1516268@outlook.com  # 提交者的邮箱是什么？

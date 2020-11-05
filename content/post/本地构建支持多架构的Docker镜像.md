@@ -21,7 +21,7 @@ thumbnailImage: https://gitee.com/YJ1516/MyPic/raw/master/picgo/docker_750x236.p
 thumbnailImagePosition: top
 metaAlignment: center
 coverImage: https://gitee.com/YJ1516/MyPic/raw/master/picgo/docker_1920x1080.jpeg
-coverCaption: "集装箱？容器？Docker？"
+coverCaption: "集装箱？容器？Docker！"
 coverMeta: in
 coverSize: full
 ---
@@ -38,6 +38,7 @@ coverSize: full
 
 - [buildx](https://github.com/docker/buildx)是一个Docker CLI插件，通过BuildKit扩展了构建功能
 - [BuildKit](https://github.com/moby/buildkit)是一个并发、高效缓存且与DOckerfile无关的构建器工具箱
+- [docker/binfmt](https://hub.docker.com/r/docker/binfmt)提供qemu模拟器来模拟不同架构
 
 # 安装
 
@@ -89,6 +90,54 @@ docker buildx version
 
 buildx可用之后，严格按照以下步骤构建多架构镜像
 
+## 开启binfmt_misc
+
+binfmt_misc用来支持多架构
+
+如果使用的是Linux需要设置binfmt_misc，如果使用的是Windows或者OSX的Docker桌面版则不需要，因为Docker本来就需要binfmt_misc支持才能在这两个系统上运行
+
+> 因为Docker是原生运行于Linux上的，而在Windows/OSX上是通过模拟一个Linux内核来运行的
+
+1. 开启binfmt_misc
+
+    在开启binfmt_misc之前执行以下命令：
+
+    ```bash
+    ll /proc/sys/fs/binfmt_misc
+    ```
+
+    可以看到该路径下只有'registry'和'status'两个文件：
+
+    ![Before](https://gitee.com/YJ1516/MyPic/raw/master/picgo/before_binnfmt.png)
+
+    接着执行以下命令开启binfmt_misc：
+
+    ```bash
+    docker run --privileged --rm tonistiigi/binfmt --install all
+    ```
+
+    再次查看`/proc/sys/fs/binfmt_misc`：
+
+    ![After](https://gitee.com/YJ1516/MyPic/raw/master/picgo/after_binfmt.png)
+
+2. 查看指定架构的解释器是否已启用
+
+    查看`/proc/sys/fs/binfmt_misc`下新增的以'qemu'开头的文件内容：
+
+    ```bash
+    cat /proc/sys/fs/binfmt_misc/qemu-*
+    ```
+
+    ![QEMU interpreter](https://gitee.com/YJ1516/MyPic/raw/master/picgo/interpreter.png)
+
+    可以看到每个文件的第一行都是'enabled'，即代表该架构处理程序已启用
+
+    注意'interpreter'行的内容，这是要用到的程序，如果没有这些程序的话需要安装
+
+    > Arch Linux中是qemu-arch-extra包（或qemu-headless-arch-extra，取决于依赖的是qemu还是qemu-headless）
+    >
+    > Ubuntu中是qemu-user包
+
 ## 切换默认的构建器
 
 执行命令`docker buildx ls`可以看到Docker默认的构建器default只支持amd64和i386架构，所以要创建一个新的支持多架构的构建器：
@@ -117,58 +166,6 @@ buildx可用之后，严格按照以下步骤构建多架构镜像
 
     **这会拉取moby/buildkit镜像，确保网络连接正常或提前已完成拉取**
 
-## 开启binfmt_misc
-
-binfmt_misc用来支持多架构
-
-如果使用的是Linux需要设置binfmt_misc，如果使用的是Windows或者OSX的Docker桌面版则不需要，因为Docker本来就需要binfmt_misc支持才能在这两个系统上运行
-
-> 因为Docker是原生运行于Linux上的，而在Windows/OSX上是通过模拟一个Linux内核来运行的
-
-查看[docker/binfmt:tags](https://hub.docker.com/r/docker/binfmt/tags)，使用最新的Tag，目前(2020-09-04)是'a7996909642ee92942dcd6cff44b9b95f08dad64'
-
-1. 拉取docker/binfmt镜像
-
-    ```bash
-    docker pull docker/binfmt:a7996909642ee92942dcd6cff44b9b95f08dad64
-    ```
-
-2. 开启binfmt_misc
-
-    在开启binfmt_misc之前执行以下命令：
-
-    ```bash
-    ll /proc/sys/fs/binfmt_misc
-    ```
-
-    可以看到该路径下只有'registry'和'status'两个文件：
-
-    ![Before](https://gitee.com/YJ1516/MyPic/raw/master/picgo/before_binnfmt.png)
-
-    接着执行以下命令开启binfmt_misc：
-
-    ```bash
-    docker run --rm --privileged docker/binfmt:<TAG>
-    ```
-
-    再次查看`/proc/sys/fs/binfmt_misc`：
-
-    ![After](https://gitee.com/YJ1516/MyPic/raw/master/picgo/after_binfmt.png)
-
-3. 查看指定架构的解释器是否已启用
-
-    查看`/proc/sys/fs/binfmt_misc`下新增的以'qemu'开头的文件内容：
-
-    ```bash
-    cat /proc/sys/fs/binfmt_misc/qemu-*
-    ```
-
-    ![QEMU interpreter](https://gitee.com/YJ1516/MyPic/raw/master/picgo/interpreter.png)
-
-    可以看到每个文件的第一行都是'enabled'，即代表该架构处理程序已启用
-
-    注意'interpreter'行的内容，这是要用到的程序，如果没有这些程序的话需要安装，Arch Linux中是qemu-arch-extra包（或qemu-headless-arch-extra，取决于依赖的是qemu还是qemu-headless），其他发行版的包名请自行搜索
-
 ## 开始构建
 
 接下来使用muilt-arch构建器进行构建即可
@@ -185,17 +182,17 @@ docker buildx build --file ./Dockerfile --platform linux/arm,linux/arm64,linux/a
 
 1. 启用了buildx
 
-2. 确保使用的是多架构构建器
+2. 开启了binfmt_misc
+
+    必须运行`docker run --privileged --rm tonistiigi/binfmt --install all`
+
+3. 确保使用的是多架构构建器
 
     必须运行`docker buildx use muilt-arch`以启用多架构构建器
 
     **确保星号在muilt-arch上并且其Status是running**：
 
     ![builder](https://gitee.com/YJ1516/MyPic/raw/master/picgo/builder-2.png)
-
-3. 开启了binfmt_misc
-
-    必须运行`docker run --rm --privileged docker/binfmt:<TAG>`
 
 4. 构建时指定了架构
 

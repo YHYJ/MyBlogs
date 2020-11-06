@@ -12,6 +12,7 @@ env:
 install:                  # 要怎么安装hugo？
   - wget https://github.com/gohugoio/hugo/releases/download/v"$hugo_version"/hugo_"$hugo_version"_Linux-64bit.deb
   - sudo dpkg -i hugo_"$hugo_version"_Linux-64bit.deb
+  - rm -rf hugo_"$hugo_version"_Linux-64bit.deb
   - hugo version
 
 # 设置clone源仓库的规则

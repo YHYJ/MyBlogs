@@ -12,7 +12,6 @@ env:
 install:                  # 要怎么安装hugo？
   - wget https://github.com/gohugoio/hugo/releases/download/v"$hugo_version"/hugo_"$hugo_version"_Linux-64bit.deb
   - sudo dpkg -i hugo_"$hugo_version"_Linux-64bit.deb
-  - rm -rf hugo_"$hugo_version"_Linux-64bit.deb
   - hugo version
 
 # 设置clone源仓库的规则
@@ -35,7 +34,7 @@ deploy:                         # 要怎么部署？
   token: $GITHUB_TOKEN          # 要部署的仓库的TOKEN是什么？
   local_dir: public             # 要部署的源仓库的文件夹叫什么？
   target_branch: master         # 把local_dir的内容部署到哪个分支？
-  cleanup: false                # 要不要重置工作目录？
+  skip_cleanup: true            # 要不要重置工作目录？
   keep_history: false           # 要不要选择增量提交？
   fqdn: yj1516.top              # 网站的域是什么？
   name: YHYJ                    # 提交者是谁？

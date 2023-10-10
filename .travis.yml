@@ -1,0 +1,42 @@
+# 设置构建环境
+os: linux     # 虚拟机系统是什么？
+dist: xenial  # 系统版本是什么？
+language: go  # 要安装哪种语言环境？
+go:           # 使用该语言的哪个版本？
+  - "1.15.3"
+
+# 设置环境变量
+env:
+  - hugo_version=0.77.0
+
+# 安装构建时的依赖
+install:                  # 要怎么安装hugo？
+  - wget https://github.com/gohugoio/hugo/releases/download/v"$hugo_version"/hugo_"$hugo_version"_Linux-64bit.deb
+  - sudo dpkg -i hugo_"$hugo_version"_Linux-64bit.deb
+  - hugo version
+
+# 设置clone源仓库的规则
+git:                # 要怎么clone？
+  depth: 1          # clone多少个commit？
+  quiet: false      # 要不要输出日志？
+  autocrlf: input   # 在什么时候自动调整回车换行？
+
+# 设置构建命令
+script:     # 要怎么构建？
+  - hugo
+
+# 设置部署规则
+deploy:                         # 要怎么部署？
+  provider: pages               # 要部署的是什么？
+  strategy: git                 # 部署策略是什么？
+  on:
+    branch: master              # 要到仓库的哪个分支进行部署？
+  repo: YHYJ/YHYJ.github.io     # 要部署到哪个仓库？
+  token: $GITHUB_TOKEN          # 要部署的仓库的TOKEN是什么？
+  local_dir: public             # 要部署的源仓库的文件夹叫什么？
+  target_branch: master         # 把local_dir的内容部署到哪个分支？
+  skip_cleanup: true            # 要不要重置工作目录？
+  keep_history: false           # 要不要选择增量提交？
+  fqdn: yj1516.top              # 网站的域是什么？
+  name: YHYJ                    # 提交者是谁？
+  email: yj1516268@outlook.com  # 提交者的邮箱是什么？

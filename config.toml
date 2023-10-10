@@ -1,0 +1,174 @@
+### 修改前请详细阅读注释
+### 注释开头： #是用户自定义字段，##是不建议修改的字段，###是说明性文字
+
+### 建议通过阿里、七牛、又拍云等进行CDN加速
+
+baseURL = "https://yj1516.top"      # 站点地址
+languageCode = "en-us"              ## 语言选项
+defaultContentLanguage = "en-us"    # 显示文本的语言
+title = "Time"                      # 站点名
+theme = "hugo-tranquilpeak-theme"   # 根据下载到themes时的文件夹名确定
+disqusShortname = "yj1516"          # Disqus短语，用于添加留言系统
+googleAnalytics = "UA-150098882-1"  # google analytics UA
+paginate = 8                        # 每页最多显示的文章数
+canonifyurls = true                 ## 网址规范化
+
+[permalinks]                        ### 文章URL
+  post = "/:year/:month/:slug/"     ## 文章URL命名规则：baseURL/year/month/postname
+
+[taxonomies]                        ### 分类法
+  tag = "tags"                      ## 标签
+  category = "categories"           ## 分类
+  archive = "archives"              ## 归档
+
+[author]                                    ### 作者信息
+  name = "YJ"                               # 作者名
+  bio = "*猫奴* *闲人*"                     # 简介
+  job = "Developer"                         # 职业名，在about页面的信息
+  location = "China"                        # 所在地，在about页面的信息
+  gravatarEmail = ""     # Gravatar注册邮箱，用于显示用户头像
+  picture = "https://gitee.com/YJ1516/MyPic/raw/master/picgo/Mercy.jpeg"                              # 当gravatarEmail为空时使用该图片作为用户头像
+  # twitter = "XXXXXX"                      # 不加@的twitter账户名，例如'abcdef'
+  # googlePlus = "XXXXXX"                   # google plus账户名，例如'+abcdef'
+
+# 侧边栏，点后面的字符代表分区，一共有['main', 'links', 'misc']三种
+[[menu.main]]                                                       # 分区名
+  weight = 1                                                        # 排序
+  identifier = "home"                                               ## 标识符
+  name = "Home"                                                     # 显示的名字
+  pre = "<i class=\"sidebar-button-icon fa fa-lg fa-home\"></i>"    # 图标
+  url = "/"                                                         # 链接的URI
+[[menu.main]]
+  weight = 2
+  identifier = "github"
+  name = "GitHub"
+  pre = "<i class=\"sidebar-button-icon fa fa-lg fa-github\"></i>"
+  url = "https://github.com/YHYJ"
+
+[[menu.links]]
+  weight = 1
+  identifier = "categories"
+  name = "Categories"
+  pre = "<i class=\"sidebar-button-icon fa fa-lg fa-bookmark\"></i>"
+  url = "/categories"
+[[menu.links]]
+  weight = 2
+  identifier = "tags"
+  name = "Tags"
+  pre = "<i class=\"sidebar-button-icon fa fa-lg fa-tags\"></i>"
+  url = "/tags"
+[[menu.links]]
+  weight = 3
+  identifier = "archives"
+  name = "Archives"
+  pre = "<i class=\"sidebar-button-icon fa fa-lg fa-archive\"></i>"
+  url = "/archives"
+
+[[menu.misc]]
+  weight = 1
+  identifier = "rss"
+  name = "RSS"
+  pre = "<i class=\"sidebar-button-icon fa fa-lg fa-rss\"></i>"
+  url = "/index.xml"
+[[menu.misc]]
+  weight = 2
+  identifier = "about"
+  name = "About"
+  pre = "<i class=\"sidebar-button-icon fa fa-lg fa-question\"></i>"
+  url = "/#about"
+
+[params]                                    ### 辅助功能参数
+  ### 文章显示的日期格式，必须使用Golang的time包(https://golang.org/pkg/time/)中定义的格式
+  dateFormat = "2006-1-2"                   ### 默认是：2 January 2006
+
+  keywords = ["development", "next-gen"]    # 供搜索引擎使用的搜索关键字
+
+  syntaxHighlighter = "highlight.js"        # 代码高亮模式，有"highlight.js"和'prism.js'两种
+
+  clearReading = true                       # 阅读时隐藏侧边栏
+
+  hierarchicalCategories = true             # 在"分类"之间建立层级关系
+
+  description = "**永远不要只满足于世界的表象，要敢于探寻未知的可能**"    # 站点描述
+
+  ### 定义侧边栏模式
+  # 1: Display extra large sidebar on extra large screen, large sidebar on large screen,
+  #    medium sidebar on medium screen and header bar on small screen and
+  # extra large sidebar is swiped on extra large screen and large sidebar on all lower screen (default)
+  # 2: Display large sidebar on large screen, medium sidebar on medium screen and
+  #    header bar on small screen and large sidebar is swiped
+  # 3: Display medium sidebar on large and medium screen and header bar on small screen and
+  #    medium sidebar is swiped
+  # 4: Display header bar on all screens, extra large sidebar is swiped on extra large screen and
+  #    large sidebar is swiped on all lower screens
+  # 5: Display header bar on all screens and large sidebar is swiped on large screen
+  # 6: Display header bar on all screens and medium sidebar is swiped
+  sidebarBehavior = 2               # 1-宽；2-中；3-窄；4-折叠式&宽；5-折叠式&中；6-折叠式&窄
+
+  coverImage = "https://gitee.com/YJ1516/MyPic/raw/master/picgo/cover.jpg"
+
+  imageGallery = true               # 图片墙，用于默认缩略图或者文章封面
+
+  thumbnailImage = true             # 文章缩略图
+  thumbnailImagePosition = "left"   # 缩略图和标题的相对位置('right', 'left', 'bottom')，可以在具体的文章里单独设置
+  autoThumbnailImage = true         # 如果没有指定缩略图，自动从文章的图片墙提取一张
+
+  favicon = "https://gitee.com/YJ1516/MyPic/raw/master/picgo/favicon.jpg"
+
+  # Header configuration
+  # The link at the right of the header is customizable
+  # You can add a link (as an icon) at the right of the header instead of the author's gravatar image or author's picture.
+  # By default, author's gravatar or author's picture is displayed.
+  #     url: /#search
+  #     icon: search
+  #     class: st-search-show-outputs
+
+  swapPaginator = true              # "上一篇"和"下一篇"按钮的相对位置，为'true'则"上一篇"在左，否则在右
+
+  # Custom CSS. Put here your custom CSS files. They are loaded after the theme CSS;
+  # they have to be referred from static root. Example
+  # [[params.customCSS]]
+  #   href = "css/mystyle.css"
+
+  ### 自定义JS插件
+  [[params.customJS]]
+    src = "js/script-clicklove.min.js"  # 点击出现爱心效果
+
+  [[params.customJS]]
+    src = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/go.min.js"
+    integrity = "sha256-t2wP3gOvuWRLVSKRJIswwZfaFz3JudrtJwLumaoMaWU="
+    crossorigin = "anonymous"
+    async = true
+    defer = false
+
+  [[params.customJS]]
+    src = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/rust.min.js"
+    integrity = "sha256-UWMcoo+ry/Db1ZV0LMo6wbJHnpTUShrVeeWIbfC3ZJw="
+    crossorigin = "anonymous"
+    async = true
+    defer = false
+
+  ### 分享按钮
+  [[params.sharingOptions]]
+    name = "Facebook"
+    icon = "fa-facebook-official"
+    url = "https://www.facebook.com/sharer/sharer.php?u=%s"
+
+  [[params.sharingOptions]]
+    name = "Twitter"
+    icon = "fa-twitter"
+    url = "https://twitter.com/intent/tweet?text=%s"
+
+  [params.header.rightLink]             ### 页面右上角的"about"按钮
+    class = ""
+    icon = ""                           # 按钮图标
+    url = "/#about"                     # 按钮功能
+
+  [params.sidebar.profile]              ### 点击侧边栏作者头像时候的动作
+    url = "/#about"                     # 点击后转到的链接
+
+  [params.footer]                                                   ### 页脚信息
+    copyright = "<a href=\"https://github.com/YHYJ\">YHYJ</a>"  # copyright信息
+
+[markup]
+  defaultMarkdownHandler = "blackfriday"

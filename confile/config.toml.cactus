@@ -1,0 +1,48 @@
+baseurl = "https://yj1516.top"
+languageCode = "en-us"
+title = "Time"
+theme = "cactus"
+googleAnalytics = ""            # google分析
+disqusShortname = "spf13"       # 留空则禁用评论
+
+[params]
+	name = "YJ"
+	description = "Time Note"
+	bio = "闲人"
+	twitter = "Your Twitter account"
+	enableRSS = false           # 是否显示RSS订阅按钮
+
+	# Integrate Javascript files or stylesheets by adding the url to the external assets or by
+	# linking local files with their path relative to the static folder, e.g. "css/styles.css"
+	customCSS = []
+	customJS  = []
+
+	# The variables below are optionally too and can be used to
+	# translate or customize each string of the theme.
+
+	# Navigation links
+	home = "首页"
+	subscribe = "订阅RSS"
+	# Pagination links
+	olderPosts = "上一篇"
+	newerPosts = "下一篇"
+	readMore = "更多"
+	copyright = ""
+	# Sharing options and author information in posts
+	aboutAuthor = "Hola"
+	tweet = ""
+	share = ""
+	# 404 page
+	title404 = "GG"
+	subtitle404 = ""
+
+    # Either "mono-social" or "font-awesome"
+	iconFont = "mono-social"
+    # if, "mono-social", circle, rounded, or empty
+    socialIconStyle = ""
+
+# Add additional social link entries underneath
+[social]
+    facebook = "https://www.facebook.com/"
+    github   = "https://www.github.com/"
+    dribble  = "https://www.dribbble.com/"
